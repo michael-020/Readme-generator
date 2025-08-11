@@ -60,8 +60,7 @@ export function ReadmeDisplay() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900">
-      <div className="container mx-auto px-4 py-8">
-        {/* Enhanced Header */}
+      <div className="container mx-auto px-14 pt-4">
         <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 p-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="space-y-3">
@@ -90,7 +89,7 @@ export function ReadmeDisplay() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-sm transition-colors"
                     >
-                      {getRepoName(repoUrl)}
+                      {getRepoName(repoUrl)} hey
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>
@@ -98,7 +97,6 @@ export function ReadmeDisplay() {
               </div>
             </div>
             
-            {/* Action Buttons */}
             <div className="flex items-center gap-3">
               <button 
                 onClick={handleCopy}
@@ -132,7 +130,7 @@ export function ReadmeDisplay() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        
         <div className="flex items-center gap-1 mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl p-1 w-fit">
           <button
             onClick={() => setActiveTab('preview')}
@@ -154,11 +152,10 @@ export function ReadmeDisplay() {
             }`}
           >
             <Code className="h-4 w-4" />
-            Raw Markdown
+            Markdown
           </button>
         </div>
 
-        {/* Content Area */}
         <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden">
           {activeTab === 'preview' ? (
             <div className="p-8 overflow-auto max-h-[calc(100vh-300px)]">
@@ -166,26 +163,26 @@ export function ReadmeDisplay() {
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkBreaks]}
                   components={{
-                    // Enhanced code styling
                     code: ({ className, children, ...props }) => {
-                      const match = /language-(\w+)/.exec(className || "")
+                      const cleaned = String(children)
+                        .replace(/^\s*\n/, '') 
+                        .split('\n')
+                        .map(line => line.trimStart()) 
+                        .join('\n')
                       return (
-                        <code className="bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-md text-sm font-mono border border-neutral-200 dark:border-neutral-700" {...props}>
-                          {children}
+                        <code className=" py-1 rounded-md text-sm font-mono" {...props}>
+                          {cleaned} 
                         </code>
                       )
                     },
-                    // Enhanced pre blocks
                     pre: ({ children }) => (
                       <pre className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-xl overflow-x-auto mb-6 border border-neutral-200 dark:border-neutral-700 shadow-sm">
                         {children}
                       </pre>
                     ),
-                    // Enhanced paragraphs
                     p: ({ children }) => (
                       <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>
                     ),
-                    // Enhanced headings
                     h1: ({ children }) => (
                       <h1 className="text-4xl font-bold mb-6 mt-8 text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-neutral-700 pb-4">{children}</h1>
                     ),
@@ -214,7 +211,6 @@ export function ReadmeDisplay() {
                     li: ({ children }) => (
                       <li className="mb-1 leading-relaxed">{children}</li>
                     ),
-                    // Enhanced tables
                     table: ({ children }) => (
                       <div className="overflow-x-auto mb-6 rounded-xl border border-neutral-200 dark:border-neutral-700">
                         <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">{children}</table>
@@ -231,13 +227,11 @@ export function ReadmeDisplay() {
                     td: ({ children }) => (
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300 border-t border-neutral-200 dark:border-neutral-700">{children}</td>
                     ),
-                    // Enhanced blockquotes
                     blockquote: ({ children }) => (
                       <blockquote className="border-l-4 border-blue-400 dark:border-blue-500 pl-6 py-2 mb-6 italic text-neutral-600 dark:text-neutral-400 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg">
                         {children}
                       </blockquote>
                     ),
-                    // Enhanced links
                     a: ({ href, children }) => (
                       <a 
                         href={href} 
