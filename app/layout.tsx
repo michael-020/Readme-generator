@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -25,12 +23,6 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-
 /* Custom animations */
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
@@ -76,18 +68,18 @@ html {
   ::-webkit-scrollbar-track {
     background: rgb(23 23 23);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: rgb(64 64 64);
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(115 115 115);
   }
 }
         `}</style>
       </head>
-      <body className="antialiased bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white">
+      <body className="antialiased font-sans bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white">
         {children}
       </body>
     </html>
