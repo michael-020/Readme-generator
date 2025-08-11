@@ -2,7 +2,6 @@
 
 import { useSearchParams, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
 import { ArrowLeft, Copy, Check } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -46,18 +45,17 @@ export function ReadmeDisplay() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <Button
-            variant="ghost"
+          <button
             onClick={handleBack}
             className="mb-4 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Generator
-          </Button>
+          </button>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Generated README</h1>
           {repoUrl && <p className="text-gray-600 dark:text-gray-300 mt-2">For: {repoUrl}</p>}
         </div>
-        <Button onClick={handleCopy} className="flex items-center gap-2">
+        <button onClick={handleCopy} className="flex items-center gap-2">
           {copied ? (
             <>
               <Check className="h-4 w-4" />
@@ -69,7 +67,7 @@ export function ReadmeDisplay() {
               Copy README
             </>
           )}
-        </Button>
+        </button>
       </div>
 
       {/* Two-column layout */}

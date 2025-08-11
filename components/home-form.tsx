@@ -1,13 +1,9 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Loader2, Github } from "lucide-react"
+import { Github, Loader2 } from "lucide-react"
 import { useReadmeStore } from "@/stores/readmeStore"
 
 export function HomeForm() {
@@ -25,7 +21,6 @@ export function HomeForm() {
       return
     }
 
-    // Basic GitHub URL validation
     const githubUrlPattern = /^https:\/\/github\.com\/[\w\-.]+\/[\w\-.]+\/?$/
     if (!githubUrlPattern.test(repoUrl.trim())) {
       setError("Please enter a valid GitHub repository URL (e.g., https://github.com/user/repo)")
@@ -36,7 +31,6 @@ export function HomeForm() {
     setError("")
 
     try {
-      // Step 1: Clone repository
       const cloneResponse = await fetch("/api/clone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +43,6 @@ export function HomeForm() {
 
       const { repoName } = await cloneResponse.json()
 
-      // Step 2: Get files
       const filesResponse = await fetch("/api/files", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,7 +55,6 @@ export function HomeForm() {
 
       const { files } = await filesResponse.json()
 
-      // Step 3: Generate README
       const readmeResponse = await fetch("/api/generate-readme", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -75,11 +67,6 @@ export function HomeForm() {
 
       const { readme } = await readmeResponse.json()
 
-      // Navigate to results page with the generated README
-      const params = new URLSearchParams({
-        readme: encodeURIComponent(readme),
-        repoUrl: encodeURIComponent(repoUrl.trim()),
-      })
       setUrl(repoUrl)
       setContent(readme)
       router.push(`/readme`)
@@ -93,18 +80,18 @@ export function HomeForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="repo-url" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="repo-url" className="text-sm font-medium text-gray-700 dark:text-gray-300">
           GitHub Repository URL
-        </Label>
+        </label>
         <div className="relative">
           <Github className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-          <Input
+          <input
             id="repo-url"
             type="url"
             placeholder="https://github.com/username/repository"
             value={repoUrl}
             onChange={(e) => setRepoUrl(e.target.value)}
-            className="pl-10 h-12 text-base"
+            className="pl-10 h-12 w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
             disabled={isLoading}
           />
         </div>
@@ -116,16 +103,24 @@ export function HomeForm() {
         </div>
       )}
 
-      <Button type="submit" disabled={isLoading || !repoUrl.trim()} className="w-full h-12 text-base font-medium">
+      <button
+        type="submit"
+        disabled={isLoading || !repoUrl.trim()}
+        className={`w-full h-12 text-base font-medium rounded-md transition-colors ${
+          isLoading || !repoUrl.trim()
+            ? "bg-gray-400 text-white cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700 text-white"
+        }`}
+      >
         {isLoading ? (
-          <>
+          <span className="flex items-center justify-center">
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
             Generating README...
-          </>
+          </span>
         ) : (
           "Generate README"
         )}
-      </Button>
+      </button>
     </form>
   )
 }
