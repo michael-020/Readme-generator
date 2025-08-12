@@ -17,8 +17,7 @@ export async function POST(request: NextRequest) {
         file.path.endsWith(".spec.ts") ||
         file.path.endsWith(".lock") ||
         file.path.endsWith(".json") ||
-        file.path.endsWith(".config.js") ||
-        file.content.length > 3000
+        file.path.endsWith(".config.js")
       return !isCodeHeavy
     })
 
