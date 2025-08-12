@@ -3,7 +3,7 @@ import { openai } from "@/lib/server/openai"
 
 export async function POST(request: NextRequest) {
   try {
-    const { files } = await request.json()
+    const { files, repoName } = await request.json()
 
     if (!files || !Array.isArray(files)) {
       return NextResponse.json({ error: "Files array is required" }, { status: 400 })
@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
       You are a senior developer and technical writer helping generate clean, engaging, and beginner-friendly README.md files for GitHub projects.
 
       From the following filtered list of files and their *relevant content*, generate a concise, helpful, and appealing README file. 
+
+      Ensure the title is ${repoName}, refer the project as ${repoName} where ever you mention it in the markdown file and not anything else.
 
       📌 Guidelines:
       - ✅ Write a short and engaging introduction using emojis.

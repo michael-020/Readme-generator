@@ -68,6 +68,8 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
 
     try {
       set({ isGenerating: true })
+      const parts = repoUrl.split("/")
+      repoName = parts[parts.length - 1] || ""
 
       const readmeRes = await axios.post("/api/generate-readme", { files, repoName })
       const readme = readmeRes.data.readme
