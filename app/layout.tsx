@@ -1,17 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Toaster } from "react-hot-toast"
 
 export const metadata: Metadata = {
   title: 'GitHub README Generator - AI-Powered Documentation',
   description: 'Generate professional README files for your GitHub repositories using advanced AI technology. Create comprehensive documentation in seconds.',
   generator: 'Next.js',
-  keywords: ['GitHub', 'README', 'AI', 'Documentation', 'Generator', 'Markdown'],
-  authors: [{ name: 'README Generator Team' }],
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' }
-  ],
+  keywords: ['GitHub', 'README', 'AI', 'Documentation', 'Generator', 'Markdown']
 }
 
 export default function RootLayout({
@@ -81,6 +76,10 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-sans bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white">
         {children}
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </body>
     </html>
   )

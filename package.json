@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
@@ -26,6 +27,7 @@
     "react-day-picker": "9.8.0",
     "react-dom": "^19",
     "react-hook-form": "^7.60.0",
+    "react-hot-toast": "^2.5.2",
     "react-markdown": "latest",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.4",

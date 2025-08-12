@@ -1,6 +1,6 @@
 import { cloneRepo } from "@/lib/cloneRepo"
 import { NextRequest, NextResponse } from "next/server"
-import fs from "fs"
+import axios from "axios"
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,35 +10,41 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Repository URL is required" }, { status: 400 })
     }
 
-    // // Extract owner and repo name from GitHub URL
-    // const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/)
-    // if (!match) {
-    //   return NextResponse.json({ error: "Invalid GitHub URL format" }, { status: 400 })
-    // }
-
-    // const [, owner, repo] = match
-    // const repoName = `${owner}/${repo.replace(/\.git$/, "")}`
+    console.log("1")
     const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git|\/)?$/)
     if (!match) {
       return NextResponse.json({ error: "Invalid GitHub URL format" }, { status: 400 })
     }
 
+    console.log("2")
     const [, owner, repo] = match
     const repoName = `${owner}/${repo}`
-    
-    console.log("repo url: ", repoUrl)
-    const clone = await cloneRepo(repoUrl)
-    console.log("clone: ", clone)
 
-    const files = fs.readdirSync(clone)
-    console.log("Files in cloned repo:", files)
+    console.log("3")
 
-    // Simulate cloning process (in real implementation, you'd clone the repo)
-    // await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      // HEAD request using axios to check if repo exists
+      await axios.head(`https://api.github.com/repos/${owner}/${repo}`, {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+        },
+      })
+    } catch (err: any) {
+      console.log("GitHub API error:", err.response?.status)
+      if (err.response?.status === 404) {
+        return NextResponse.json({ error: "Repository not found on GitHub" }, { status: 404 })
+      }
 
+      return NextResponse.json(
+        { error: "GitHub API error", details: err.message },
+        { status: err.response?.status || 500 }
+      )
+    }
+
+    console.log("4")
     return NextResponse.json({ repoName })
   } catch (error) {
-    console.error("Clone error:", error)
-    return NextResponse.json({ error: "Failed to clone repository" }, { status: 500 })
+    console.error("Fetch error:", error)
+    return NextResponse.json({ error: "Failed to fetch repository" }, { status: 500 })
   }
 }

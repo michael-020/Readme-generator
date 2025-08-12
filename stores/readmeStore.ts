@@ -1,4 +1,5 @@
-// stores/readmeStore.ts
+import toast from "react-hot-toast"
+import axios from "axios"
 import { create } from "zustand"
 
 interface ReadmeState {
@@ -30,49 +31,66 @@ export const useReadmeStore = create<ReadmeState>((set) => ({
   setError: (error) => set({ error }),
 
   generateReadmeFromRepo: async (repoUrl: string) => {
-    set({ isFetchingRepo: true, isReading: false, isGenerating: false, error: "" })
+    let repoName = ""
 
+    // --- Step 1: Clone Repo ---
     try {
-      const cloneRes = await fetch("/api/fetch-repo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repoUrl }),
+      set({ isFetchingRepo: true, isReading: false, isGenerating: false, error: "" })
+
+      const res = await axios.post("/api/fetch-repo", { repoUrl })
+      repoName = res.data.repoName
+
+    } catch (err: any) {
+      const message = err.response?.data?.error || "Failed to fetch repository"
+      set({ error: message, isFetchingRepo: false })
+      toast.error(message)
+      return
+    } finally {
+      set({ isFetchingRepo: false })
+    }
+
+    // --- Step 2: Read Files ---
+    let files: string[] = []
+    try {
+      set({ isReading: true })
+
+      const filesRes = await axios.post("/api/read-files", { repoName })
+      files = filesRes.data.files
+
+    } catch (err: any) {
+      const message = err.response?.data?.error || "Failed to read repository files"
+      set({ error: message, isReading: false })
+      toast.error(message)
+      return
+    } finally {
+      set({ isReading: false })
+    }
+
+    // --- Step 3: Generate README ---
+    try {
+      set({ isGenerating: true })
+
+      const readmeRes = await axios.post("/api/generate-readme", { files, repoName })
+      const readme = readmeRes.data.readme
+
+      set({ content: readme, repoUrl })
+      toast.success("README generated successfully!", {
+        style: {
+          border: "1px solid #713200",
+          padding: "16px",
+          color: "#713200",
+        },
+        iconTheme: {
+          primary: "#713200",
+          secondary: "#FFFAEE",
+        },
       })
-
-      if (!cloneRes.ok) throw new Error("Failed to clone repository")
-
-      const { repoName } = await cloneRes.json()
-      set({ isFetchingRepo: false, isReading: true })
-
-      const filesRes = await fetch("/api/read-files", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repoName }),
-      })
-
-      if (!filesRes.ok) throw new Error("Failed to read repository files")
-
-      const { files } = await filesRes.json()
-      set({ isReading: false, isGenerating: true })
-
-      const readmeRes = await fetch("/api/generate-readme", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ files, repoName }),
-      })
-
-      if (!readmeRes.ok) throw new Error("Failed to generate README")
-
-      const { readme } = await readmeRes.json()
-
-      set({ content: readme, repoUrl, isGenerating: false })
-    } catch (err) {
-      set({
-        error: err instanceof Error ? err.message : "An unexpected error occurred",
-        isFetchingRepo: false,
-        isReading: false,
-        isGenerating: false,
-      })
+    } catch (err: any) {
+      const message = err.response?.data?.error || "Failed to generate README"
+      set({ error: message })
+      toast.error(message)
+    } finally {
+      set({ isGenerating: false })
     }
   },
 }))
