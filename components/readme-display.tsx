@@ -55,43 +55,43 @@ export function ReadmeDisplay() {
   }
 
   return (
-    <div 
-      className="min-h-screen overflow-hidden"
-    >
-      <div className="container mx-auto px-14 pt-14 ">
-        <div className="px-6 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <div className="min-h-screen">
+      <div className="container mx-auto px-40 sm:px-6 lg:px-14 pt-6 sm:pt-8 lg:pt-14">
+        {/* Header Section */}
+        <div className="px-2 sm:px-6 mb-6 sm:mb-8">
+          <div className="flex flex-col gap-4">
             <div className="space-y-3">
               <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
                     Generated README
                   </h1>
-                  <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-medium">
+                  <div className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-medium w-fit">
                     ✓ Ready
                   </div>
                 </div>
                 {repoUrl && (
-                  <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
-                    <span className="text-md">For repository:</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-neutral-600 dark:text-neutral-400">
+                    <span className="text-sm sm:text-md">For repository:</span>
                     <a 
                       href={repoUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center translate-y-[2px] gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-xs transition-colors"
+                      className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-xs sm:text-xs transition-colors break-all sm:break-normal"
                     >
                       {getRepoName(repoUrl)}
-                      <ExternalLink className="h-3 w-3" />
+                      <ExternalLink className="h-3 w-3 flex-shrink-0" />
                     </a>
                   </div>
                 )}
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3 sm:ml-auto">
               <button 
                 onClick={handleCopy}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl font-medium transition-all duration-200 ${
                   copied 
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' 
                     : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50'
@@ -112,7 +112,7 @@ export function ReadmeDisplay() {
               
               <button
                 onClick={handleDownload}
-                className="flex items-center gap-2 px-4 py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl font-medium transition-all duration-200"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl font-medium transition-all duration-200"
               >
                 <Download className="h-4 w-4" />
                 <span>Download</span>
@@ -121,35 +121,36 @@ export function ReadmeDisplay() {
           </div>
         </div>
 
-        
-        <div className="flex items-center gap-1 mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl p-1 w-fit">
+        {/* Tab Navigation */}
+        <div className="flex items-center gap-1 mb-4 sm:mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl p-1 w-full sm:w-fit mx-2 sm:mx-0">
           <button
             onClick={() => setActiveTab('preview')}
-            className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+            className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
               activeTab === 'preview'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
             <Eye className="h-4 w-4" />
-            Preview
+            <span className="text-sm sm:text-base">Preview</span>
           </button>
           <button
             onClick={() => setActiveTab('raw')}
-            className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+            className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
               activeTab === 'raw'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
             }`}
           >
             <Code className="h-4 w-4" />
-            Markdown
+            <span className="text-sm sm:text-base">Markdown</span>
           </button>
         </div>
 
-        <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden">
+        {/* Content Display */}
+        <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden mx-2 sm:mx-0">
           {activeTab === 'preview' ? (
-            <div className="p-8 overflow-auto max-h-[calc(100vh-300px)]">
+            <div className="p-4 sm:p-6 lg:p-8 overflow-auto max-h-[calc(100vh-280px)] sm:max-h-[calc(100vh-300px)]">
               <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:mb-4 prose-headings:mt-6 prose-p:mb-4 prose-ul:mb-4 prose-ol:mb-4 prose-li:mb-1">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkBreaks]}
@@ -161,43 +162,42 @@ export function ReadmeDisplay() {
                         .map(line => line.trimStart()) 
                         .join('\n')
                       return (
-                        <code className=" py-1 rounded-md text-sm font-mono" {...props}>
+                        <code className="py-1 rounded-md text-sm font-mono bg-neutral-100 dark:bg-neutral-800 px-1" {...props}>
                           {cleaned} 
                         </code>
                       )
                     },
                     pre: ({ children }) => (
-                      <pre className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-xl overflow-x-auto mb-6 border border-neutral-200 dark:border-neutral-700 shadow-sm">
+                      <pre className="bg-neutral-50 dark:bg-neutral-900 p-4 sm:p-6 rounded-xl overflow-x-auto mb-6 border border-neutral-200 dark:border-neutral-700 shadow-sm text-sm">
                         {children}
                       </pre>
                     ),
                     p: ({ children }) => (
-                      <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">{children}</p>
+                      <p className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300 text-sm sm:text-base">{children}</p>
                     ),
                     h1: ({ children }) => (
-                      <h1 className="text-4xl font-bold mb-6 mt-8 text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-neutral-700 pb-4">{children}</h1>
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 mt-6 sm:mt-8 text-neutral-900 dark:text-white border-b border-neutral-200 dark:border-neutral-700 pb-3 sm:pb-4">{children}</h1>
                     ),
                     h2: ({ children }) => (
-                      <h2 className="text-3xl font-semibold mb-4 mt-8 text-neutral-900 dark:text-white">{children}</h2>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4 mt-6 sm:mt-8 text-neutral-900 dark:text-white">{children}</h2>
                     ),
                     h3: ({ children }) => (
-                      <h3 className="text-2xl font-semibold mb-3 mt-6 text-neutral-900 dark:text-white">{children}</h3>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-3 mt-5 sm:mt-6 text-neutral-900 dark:text-white">{children}</h3>
                     ),
                     h4: ({ children }) => (
-                      <h4 className="text-xl font-semibold mb-3 mt-5 text-neutral-900 dark:text-white">{children}</h4>
+                      <h4 className="text-base sm:text-lg lg:text-xl font-semibold mb-3 mt-4 sm:mt-5 text-neutral-900 dark:text-white">{children}</h4>
                     ),
                     h5: ({ children }) => (
-                      <h5 className="text-lg font-semibold mb-2 mt-4 text-neutral-900 dark:text-white">{children}</h5>
+                      <h5 className="text-sm sm:text-base lg:text-lg font-semibold mb-2 mt-4 text-neutral-900 dark:text-white">{children}</h5>
                     ),
                     h6: ({ children }) => (
-                      <h6 className="text-base font-semibold mb-2 mt-4 text-neutral-900 dark:text-white">{children}</h6>
+                      <h6 className="text-sm sm:text-base font-semibold mb-2 mt-4 text-neutral-900 dark:text-white">{children}</h6>
                     ),
-                    // Enhanced lists
                     ul: ({ children }) => (
-                      <ul className="mb-6 space-y-2 list-disc list-inside text-neutral-700 dark:text-neutral-300">{children}</ul>
+                      <ul className="mb-6 space-y-2 list-disc list-inside text-neutral-700 dark:text-neutral-300 text-sm sm:text-base">{children}</ul>
                     ),
                     ol: ({ children }) => (
-                      <ol className="mb-6 space-y-2 list-decimal list-inside text-neutral-700 dark:text-neutral-300">{children}</ol>
+                      <ol className="mb-6 space-y-2 list-decimal list-inside text-neutral-700 dark:text-neutral-300 text-sm sm:text-base">{children}</ol>
                     ),
                     li: ({ children }) => (
                       <li className="mb-1 leading-relaxed">{children}</li>
@@ -211,29 +211,28 @@ export function ReadmeDisplay() {
                       <thead className="bg-neutral-50 dark:bg-neutral-800">{children}</thead>
                     ),
                     th: ({ children }) => (
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
                         {children}
                       </th>
                     ),
                     td: ({ children }) => (
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300 border-t border-neutral-200 dark:border-neutral-700">{children}</td>
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 border-t border-neutral-200 dark:border-neutral-700">{children}</td>
                     ),
                     blockquote: ({ children }) => (
-                      <blockquote className="border-l-4 border-blue-400 dark:border-blue-500 pl-6 py-2 mb-6 italic text-neutral-600 dark:text-neutral-400 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg">
+                      <blockquote className="border-l-4 border-blue-400 dark:border-blue-500 pl-4 sm:pl-6 py-2 mb-6 italic text-neutral-600 dark:text-neutral-400 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg text-sm sm:text-base">
                         {children}
                       </blockquote>
                     ),
                     a: ({ href, children }) => (
                       <a 
                         href={href} 
-                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors"
+                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors break-words"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {children}
                       </a>
                     ),
-                    // Line breaks
                     br: () => <br className="mb-2" />,
                   }}
                 >
@@ -244,20 +243,20 @@ export function ReadmeDisplay() {
           ) : (
             <div className="relative">
               {/* Raw markdown view with syntax highlighting */}
-              <div className="absolute top-4 right-4 z-10">
+              <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10">
                 <button
                   onClick={handleCopy}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-2 sm:px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
                     copied 
                       ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' 
                       : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                   }`}
                 >
                   {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                  {copied ? 'Copied' : 'Copy'}
+                  <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
-              <pre className="h-[calc(100vh-300px)] overflow-auto p-8 text-sm font-mono text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap leading-relaxed bg-neutral-50 dark:bg-neutral-900">
+              <pre className="h-[calc(100vh-280px)] sm:h-[calc(100vh-300px)] overflow-auto p-4 sm:p-6 lg:p-8 text-xs sm:text-sm font-mono text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap leading-relaxed bg-neutral-50 dark:bg-neutral-900">
                 {readme}
               </pre>
             </div>
@@ -265,8 +264,8 @@ export function ReadmeDisplay() {
         </div>
 
         {/* Stats Footer */}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-400">
-          <div className="flex items-center gap-4">
+        <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-neutral-500 dark:text-neutral-400 px-2 sm:px-0">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
             <span>Characters: {readme.length.toLocaleString()}</span>
             <span>Lines: {readme.split('\n').length.toLocaleString()}</span>
             <span>Words: {readme.split(/\s+/).length.toLocaleString()}</span>

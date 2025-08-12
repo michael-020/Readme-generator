@@ -4,7 +4,7 @@ import { Suspense } from "react"
 export default function ReadmePage() {
   return (
     <div 
-      className="min-h-screen max-w-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-8 overflow-hidden"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-8 "
       style={{ backgroundImage: `url('/gradii-image.png')` }}
     >
       <Suspense
