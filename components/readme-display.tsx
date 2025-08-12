@@ -55,9 +55,11 @@ export function ReadmeDisplay() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900">
-      <div className="container mx-auto px-14 pt-4">
-        <div className="p-6 mb-8">
+    <div 
+      className="min-h-screen overflow-hidden"
+    >
+      <div className="container mx-auto px-14 pt-14 ">
+        <div className="px-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="space-y-3">
               <div>

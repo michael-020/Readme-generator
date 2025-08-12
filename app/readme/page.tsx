@@ -3,7 +3,10 @@ import { Suspense } from "react"
 
 export default function ReadmePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900">
+    <div 
+      className="min-h-screen max-w-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-8 overflow-hidden"
+      style={{ backgroundImage: `url('/gradii-image.png')` }}
+    >
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center min-h-screen">

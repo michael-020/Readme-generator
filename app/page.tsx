@@ -1,15 +1,16 @@
 import { HomeForm } from "@/components/home-form"
+import { BriefcaseBusinessIcon } from "lucide-react"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-800">
+    <div 
+    className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-8"
+      style={{ backgroundImage: `url('/gradii-image.png')` }}
+    >
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Header Section */}
           <div className="mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium mb-6">
-              ✨ AI-Powered Documentation
-            </div>
             <h1 className="text-5xl font-bold bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-neutral-200 dark:to-neutral-400 bg-clip-text text-transparent mb-6">
               GitHub README Generator
             </h1>
@@ -45,9 +46,7 @@ export default function HomePage() {
             </div>
             <div className="text-center p-6 rounded-xl bg-white/50 dark:bg-neutral-800/30 border border-neutral-200/30 dark:border-neutral-700/30">
               <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+                <BriefcaseBusinessIcon className="text-purple-900" />
               </div>
               <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Professional</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">Clean, structured, and documentation best practices</p>
