@@ -7,12 +7,11 @@ import { motion } from "framer-motion"
 export default function HomePage() {
   return (
     <div 
-      className="min-h-screen max-w-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 pb-0 overflow-x-hidden"
+      className="min-h-screen max-w-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 sm:pb-0 lg:pb-0 pb-0 overflow-x-hidden"
       style={{ backgroundImage: `url('/gradii-image.png')` }}
     >
       <div className="container mx-auto px-2 sm:px-4 py-8 sm:py-12 lg:py-20 w-full">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Header Section */}
           <motion.div 
             className="mb-8 sm:mb-12 lg:mb-16 px-2"
             initial={{ opacity: 0, y: -10 }}
