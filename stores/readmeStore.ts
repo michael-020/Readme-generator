@@ -17,7 +17,7 @@ interface ReadmeState {
   generateReadmeFromRepo: (repoUrl: string) => Promise<void>
 }
 
-export const useReadmeStore = create<ReadmeState>((set) => ({
+export const useReadmeStore = create<ReadmeState>((set, get) => ({
   content: "",
   repoUrl: "",
 
@@ -32,8 +32,9 @@ export const useReadmeStore = create<ReadmeState>((set) => ({
 
   generateReadmeFromRepo: async (repoUrl: string) => {
     let repoName = ""
-
-    // --- Step 1: Clone Repo ---
+    console.log("repourl: ", repoUrl)
+    get().setUrl(repoUrl)
+    console.log("repourl of store: ", get().repoUrl)
     try {
       set({ isFetchingRepo: true, isReading: false, isGenerating: false, error: "" })
 
@@ -49,7 +50,6 @@ export const useReadmeStore = create<ReadmeState>((set) => ({
       set({ isFetchingRepo: false })
     }
 
-    // --- Step 2: Read Files ---
     let files: string[] = []
     try {
       set({ isReading: true })
@@ -66,7 +66,6 @@ export const useReadmeStore = create<ReadmeState>((set) => ({
       set({ isReading: false })
     }
 
-    // --- Step 3: Generate README ---
     try {
       set({ isGenerating: true })
 

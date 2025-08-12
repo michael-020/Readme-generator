@@ -45,10 +45,6 @@ export function ReadmeDisplay() {
     URL.revokeObjectURL(url)
   }
 
-  const handleBack = () => {
-    router.push("/")
-  }
-
   const getRepoName = (url: string) => {
     const match = url.match(/github\.com\/(.+?)\/(.+?)(?:\/|$)/)
     return match ? `${match[1]}/${match[2]}` : url
@@ -61,16 +57,9 @@ export function ReadmeDisplay() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900">
       <div className="container mx-auto px-14 pt-4">
-        <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 p-6 mb-8">
+        <div className="p-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="space-y-3">
-              <button
-                onClick={handleBack}
-                className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 group"
-              >
-                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                <span className="font-medium">Back to Generator</span>
-              </button>
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <h1 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
@@ -82,14 +71,14 @@ export function ReadmeDisplay() {
                 </div>
                 {repoUrl && (
                   <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
-                    <span className="text-sm">For repository:</span>
+                    <span className="text-md">For repository:</span>
                     <a 
                       href={repoUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-sm transition-colors"
+                      className="inline-flex items-center translate-y-[2px] gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-mono text-xs transition-colors"
                     >
-                      {getRepoName(repoUrl)} hey
+                      {getRepoName(repoUrl)}
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>
@@ -134,7 +123,7 @@ export function ReadmeDisplay() {
         <div className="flex items-center gap-1 mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl p-1 w-fit">
           <button
             onClick={() => setActiveTab('preview')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+            className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
               activeTab === 'preview'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
@@ -145,7 +134,7 @@ export function ReadmeDisplay() {
           </button>
           <button
             onClick={() => setActiveTab('raw')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+            className={`flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
               activeTab === 'raw'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'

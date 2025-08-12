@@ -8,9 +8,9 @@ import { useReadmeStore } from "@/stores/readmeStore"
 
 export function HomeForm() {
   const [isFocused, setIsFocused] = useState(false)
+  const [inputVal, setInputVal] = useState("")
   const router = useRouter()
   const {
-    setUrl,
     setContent,
     generateReadmeFromRepo,
     isFetchingRepo,
@@ -18,7 +18,6 @@ export function HomeForm() {
     isGenerating,
     error,
     content,
-    repoUrl,
     setError
   } = useReadmeStore()
   const isLoading = isFetchingRepo || isReading || isGenerating
@@ -26,22 +25,22 @@ export function HomeForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!repoUrl.trim()) {
+    if (!inputVal.trim()) {
       setError("Please enter a GitHub repository URL")
       return
     }
 
     const githubUrlPattern = /^https:\/\/github\.com\/[\w\-.]+\/[\w\-.]+\/?$/
-    if (!githubUrlPattern.test(repoUrl.trim())) {
+    if (!githubUrlPattern.test(inputVal.trim())) {
       setError("Please enter a valid GitHub repository URL (e.g., https://github.com/user/repo)")
       return
     }
 
     setError("")
 
-    await generateReadmeFromRepo(repoUrl.trim())
+    await generateReadmeFromRepo(inputVal.trim())
 
-    setUrl("")
+    setInputVal("")
 
     router.push("/readme")
   }
@@ -60,8 +59,8 @@ export function HomeForm() {
             id="repo-url"
             type="url"
             placeholder="https://github.com/username/repository"
-            value={repoUrl}
-            onChange={(e) => setUrl(e.target.value)}
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             className={`pl-12 pr-36 h-14 w-full rounded-xl border-2 transition-all duration-200 text-base font-medium
@@ -70,11 +69,11 @@ export function HomeForm() {
                 : 'border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800/50 hover:border-neutral-300 dark:hover:border-neutral-500'
               }
               text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 
-              focus:outline-none focus:ring-2 focus:ring-neutral-500/20
+              focus:outline-none focus:ring-0 focus:ring-neutral-500/20
               disabled:opacity-50 disabled:cursor-not-allowed`}
             disabled={isLoading}
           />
-          {repoUrl && !error && (
+          {inputVal && !error && (
             <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             </div>
@@ -83,9 +82,9 @@ export function HomeForm() {
 
         <button
           type="submit"
-          disabled={isLoading || !repoUrl.trim()}
-          className={`absolute right-2 top-[36px] h-10 px-4 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2
-            ${isLoading || !repoUrl.trim()
+          disabled={isLoading || !inputVal.trim()}
+          className={`absolute cursor-pointer right-2 top-[36px] h-10 px-4 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2
+            ${isLoading || !inputVal.trim()
               ? "bg-neutral-300 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed"
               : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg"
             }`}
@@ -134,7 +133,7 @@ export function HomeForm() {
             <div
               className="bg-gradient-to-r from-blue-500 to-blue-600 h-1.5 rounded-full animate-pulse"
               style={{
-                width: isFetchingRepo ? "30%" : isReading ? "60%" : "90%",
+                width: isFetchingRepo ? "0" : isReading ? "50%" : "90%",
               }}
             ></div>
           </div>
