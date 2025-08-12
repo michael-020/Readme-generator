@@ -9,25 +9,39 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Files array is required" }, { status: 400 })
     }
 
+    const filteredFiles = files.filter((file: any) => {
+      const isCodeHeavy =
+        file.path.includes("/api/") ||
+        file.path.includes("node_modules") ||
+        file.path.endsWith(".test.ts") ||
+        file.path.endsWith(".spec.ts") ||
+        file.path.endsWith(".lock") ||
+        file.path.endsWith(".json") ||
+        file.path.endsWith(".config.js") ||
+        file.content.length > 3000
+      return !isCodeHeavy
+    })
+
+
     const prompt = `
-      You are a senior developer and technical writer helping generate beautiful README files for open source GitHub projects.
+      You are a senior developer and technical writer helping generate clean, engaging, and beginner-friendly README.md files for GitHub projects.
 
-      Based on the following list of files and their contents, generate a clean, high-level, user-friendly README.md file.
+      From the following filtered list of files and their *relevant content*, generate a concise, helpful, and appealing README file. 
 
-      The README should include:
-      - A short and engaging introduction with relevant emojis.
-      - A bullet-point list of the key features (using emojis).
-      - Technologies used (grouped into Backend / Frontend).
-      - A "Getting Started" section that explains how to install and run the project locally.
-      - Keep the language friendly and accessible.
-      - Do NOT include API endpoints, WebSocket message types, or internal architecture.
-      - Do NOT include any licensing information.
-      - Keep the README concise, helpful, and visually appealing.
+      📌 Guidelines:
+      - ✅ Write a short and engaging introduction using emojis.
+      - ✅ Include key features as a bullet list (with emojis).
+      - ✅ List technologies used (grouped by Backend / Frontend).
+      - ✅ Add a Getting Started section with install/run steps.
+      - ❌ DO NOT include any raw code, file listings, or API route details.
+      - ❌ DO NOT show full implementations or deep technical internals.
+      - ❌ DO NOT mention licensing or testing code unless specifically important.
 
-      Only output the final README content. No commentary or extra explanations.
+      Only return the final README content — no extra commentary.
 
-      ${files.map((file: any) => `### ${file.path}\n\`\`\`\n${file.content}\n\`\`\``).join("\n\n")}
+      ${filteredFiles.map((file: any) => `### ${file.path}\n\`\`\`\n${file.content}\n\`\`\``).join("\n\n")}
     `
+
 
     const response = await openai.chat.completions.create({
       model: "gemini-2.5-flash",
