@@ -1,15 +1,14 @@
 "use client"
 
-import { useSearchParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-import { ArrowLeft, Copy, Check, Download, Eye, Code, ExternalLink } from "lucide-react"
+import { Copy, Check, Download, Eye, Code, ExternalLink } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import remarkBreaks from "remark-breaks"
 import { useReadmeStore } from "@/stores/readmeStore"
 
 export function ReadmeDisplay() {
-  const searchParams = useSearchParams()
   const router = useRouter()
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState<'preview' | 'raw'>('preview')
@@ -56,11 +55,11 @@ export function ReadmeDisplay() {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-40 sm:px-6 lg:px-14 pt-6 sm:pt-8 lg:pt-14">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-14 xl:px-40 pt-6 sm:pt-8 lg:pt-14">
         {/* Header Section */}
-        <div className="px-2 sm:px-6 mb-6 sm:mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                   <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
@@ -85,10 +84,7 @@ export function ReadmeDisplay() {
                   </div>
                 )}
               </div>
-            </div>
-            
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3 sm:ml-auto">
+              <div className="flex sm:hidden flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3 sm:ml-auto">
               <button 
                 onClick={handleCopy}
                 className={`flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl font-medium transition-all duration-200 ${
@@ -118,33 +114,65 @@ export function ReadmeDisplay() {
                 <span>Download</span>
               </button>
             </div>
+            </div>
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex items-center gap-1 mb-4 sm:mb-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl p-1 w-full sm:w-fit mx-2 sm:mx-0">
-          <button
-            onClick={() => setActiveTab('preview')}
-            className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
-              activeTab === 'preview'
+        <div className="flex mb-5">
+          <div className="flex items-center gap-1  bg-neutral-100 dark:bg-neutral-800 rounded-xl w-full sm:w-fit mx-2 sm:mx-0">
+            <button
+              onClick={() => setActiveTab('preview')}
+              className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
+                activeTab === 'preview'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-            }`}
-          >
-            <Eye className="h-4 w-4" />
-            <span className="text-sm sm:text-base">Preview</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('raw')}
-            className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
-              activeTab === 'raw'
+              }`}
+              >
+              <Eye className="h-4 w-4" />
+              <span className="text-sm sm:text-base">Preview</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('raw')}
+              className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
+                activeTab === 'raw'
                 ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-sm'
                 : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-            }`}
-          >
-            <Code className="h-4 w-4" />
-            <span className="text-sm sm:text-base">Markdown</span>
-          </button>
+              }`}
+              >
+              <Code className="h-4 w-4" />
+              <span className="text-sm sm:text-base">Markdown</span>
+            </button>
+          </div>
+          <div className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3 sm:ml-auto">
+              <button 
+                onClick={handleCopy}
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl font-medium transition-all duration-200 ${
+                  copied 
+                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' 
+                    : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50'
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              
+              <button
+                onClick={handleDownload}
+                className="flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl font-medium transition-all duration-200"
+              >
+                <Download className="h-4 w-4" />
+                <span>Download</span>
+              </button>
+            </div>
         </div>
 
         {/* Content Display */}
