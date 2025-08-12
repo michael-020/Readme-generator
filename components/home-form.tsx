@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Github, Loader2, ArrowRight } from "lucide-react"
 import { useReadmeStore } from "@/stores/readmeStore"
+import { motion } from "framer-motion"
 
 export function HomeForm() {
   const [isFocused, setIsFocused] = useState(false)
@@ -54,7 +55,7 @@ export function HomeForm() {
           </label>
           <div className="relative group">
             <Github className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 transition-colors duration-200 ${
-              isFocused ? 'text-blue-500' : 'text-neutral-400'
+              isFocused ? 'text-neutral-200' : 'text-neutral-700'
             }`} />
             <input
               id="repo-url"
@@ -64,7 +65,7 @@ export function HomeForm() {
               onChange={(e) => setInputVal(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className={`pl-12 pr-36 h-14 w-full rounded-xl border-2 transition-all duration-200 text-base font-medium
+              className={`pl-12 pr-36 h-14 w-full hover:shadow-2xl hover:shadow-neutral-600 rounded-xl border-2 transition-all duration-200 text-base font-medium
                 ${isFocused 
                   ? ' bg-white dark:bg-neutral-800 shadow-lg shadow-neutral-500/10' 
                   : 'border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800/50 hover:border-neutral-300 dark:hover:border-neutral-500'
@@ -87,7 +88,7 @@ export function HomeForm() {
             className={`absolute cursor-pointer right-2 top-[36px] h-10 px-4 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2
               ${isLoading || !inputVal.trim()
                 ? "bg-neutral-300 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg"
+                : "bg-neutral-200 text-black hover:to-blue-800 shadow-md hover:shadow-lg"
               }`}
               >
             {isLoading ? (
@@ -130,13 +131,15 @@ export function HomeForm() {
               </span>
               <span>This may take a few moments</span>
             </div>
-            <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5">
-              <div
-                className="bg-gradient-to-r from-blue-500 to-blue-600 h-1.5 rounded-full animate-pulse"
-                style={{
-                  width: isFetchingRepo ? "0" : isReading ? "50%" : "90%",
+            <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5 overflow-hidden">
+              <motion.div
+                className="bg-gradient-to-r from-blue-500 to-blue-600 h-1.5 rounded-full"
+                initial={{ width: 0 }}
+                animate={{
+                  width: isFetchingRepo ? "0%" : isReading ? "50%" : "90%"
                 }}
-                ></div>
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              />
             </div>
           </div>
         )}
