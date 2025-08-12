@@ -10,17 +10,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Repository URL is required" }, { status: 400 })
     }
 
-    console.log("1")
     const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git|\/)?$/)
     if (!match) {
       return NextResponse.json({ error: "Invalid GitHub URL format" }, { status: 400 })
     }
 
-    console.log("2")
     const [, owner, repo] = match
     const repoName = `${owner}/${repo}`
 
-    console.log("3")
 
     try {
       // HEAD request using axios to check if repo exists
@@ -30,7 +27,7 @@ export async function POST(req: NextRequest) {
         },
       })
     } catch (err: any) {
-      console.log("GitHub API error:", err.response?.status)
+      console.error("GitHub API error:", err.response?.status)
       if (err.response?.status === 404) {
         return NextResponse.json({ error: "Repository not found on GitHub" }, { status: 404 })
       }
@@ -41,7 +38,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log("4")
     return NextResponse.json({ repoName })
   } catch (error) {
     console.error("Fetch error:", error)

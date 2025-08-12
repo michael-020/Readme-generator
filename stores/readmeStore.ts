@@ -32,9 +32,7 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
 
   generateReadmeFromRepo: async (repoUrl: string) => {
     let repoName = ""
-    console.log("repourl: ", repoUrl)
     get().setUrl(repoUrl)
-    console.log("repourl of store: ", get().repoUrl)
     try {
       set({ isFetchingRepo: true, isReading: false, isGenerating: false, error: "" })
 
