@@ -1,10 +1,10 @@
 import { HomeForm } from "@/components/home-form"
-import { BriefcaseBusinessIcon } from "lucide-react"
+import { BriefcaseBusinessIcon, Github } from "lucide-react"
 
 export default function HomePage() {
   return (
     <div 
-    className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-8"
+      className="min-h-screen max-w-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center p-8 pb-0 overflow-x-hidden"
       style={{ backgroundImage: `url('/gradii-image.png')` }}
     >
       <div className="container mx-auto px-4 py-20">
@@ -51,6 +51,31 @@ export default function HomePage() {
               <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Professional</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">Clean, structured, and documentation best practices</p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t py-4 border-neutral-500 w-screen px-4">
+        <div className="flex w-full justify-between">
+          <div className="text-neutral-500">
+            © 2025 ReadmeX — All rights reserved.
+          </div>
+          <div className="flex gap-1">
+            <a
+              className="text-neutral-500"
+              target="_blank"
+              href="https://github.com/michael-020"
+            >
+              <Github className="size-6" />
+            </a>
+            <a 
+              href="https://x.com/MichaelHosamani"
+              target="_blank"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" stroke="#737373" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 30 30">
+                <path d="M26.37,26l-8.795-12.822l0.015,0.012L25.52,4h-2.65l-6.46,7.48L11.28,4H4.33l8.211,11.971L12.54,15.97L3.88,26h2.65 l7.182-8.322L19.42,26H26.37z M10.23,6l12.34,18h-2.1L8.12,6H10.23z"></path>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
