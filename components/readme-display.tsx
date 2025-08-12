@@ -119,7 +119,7 @@ export function ReadmeDisplay() {
         </div>
 
         <div className="flex mb-5">
-          <div className="flex items-center gap-1  bg-neutral-100 dark:bg-neutral-800 rounded-xl w-full sm:w-fit mx-2 sm:mx-0">
+          <div className="flex items-center gap-1  bg-neutral-100 dark:bg-neutral-800 rounded-xl w-full sm:w-fit ">
             <button
               onClick={() => setActiveTab('preview')}
               className={`flex cursor-pointer items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 flex-1 sm:flex-initial ${
@@ -176,9 +176,9 @@ export function ReadmeDisplay() {
         </div>
 
         {/* Content Display */}
-        <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden mx-2 sm:mx-0">
+        <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden">
           {activeTab === 'preview' ? (
-            <div className="p-4 sm:p-6 lg:p-8 overflow-auto max-h-[calc(100vh-280px)] sm:max-h-[calc(100vh-300px)]">
+            <div className="p-4 pt-0 sm:pt-0 lg:pt-0 sm:p-6 lg:p-8 overflow-auto max-h-[calc(100vh-280px)] sm:max-h-[calc(100vh-300px)]">
               <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:mb-4 prose-headings:mt-6 prose-p:mb-4 prose-ul:mb-4 prose-ol:mb-4 prose-li:mb-1">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkBreaks]}
