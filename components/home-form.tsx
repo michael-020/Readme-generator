@@ -80,7 +80,6 @@ export function HomeForm() {
             )}
           </div>
 
-          {/* Mobile Generate Button - Full Width */}
           <button
             type="submit"
             disabled={isLoading || !inputVal.trim()}
@@ -103,7 +102,6 @@ export function HomeForm() {
             )}
           </button>
 
-          {/* Desktop Generate Button - Positioned Inside Input */}
           <button
             type="submit"
             disabled={isLoading || !inputVal.trim()}
@@ -160,7 +158,7 @@ export function HomeForm() {
                 className="bg-gradient-to-r from-blue-500 to-blue-600 h-1.5 rounded-full"
                 initial={{ width: 0 }}
                 animate={{
-                  width: isFetchingRepo ? "0%" : isReading ? "50%" : "90%"
+                  width: isFetchingRepo ? "10%" : isReading ? "50%" : "90%"
                 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
               />
