@@ -190,8 +190,8 @@ export function ReadmeDisplay() {
                         .map(line => line.trimStart()) 
                         .join('\n')
                       return (
-                        <code className="py-1 rounded-md text-sm font-mono bg-neutral-100 dark:bg-neutral-800 px-1" {...props}>
-                          {cleaned} 
+                        <code className="py-1 rounded-md text-sm font-mono " {...props}>
+                          {cleaned}
                         </code>
                       )
                     },

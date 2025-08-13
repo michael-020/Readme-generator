@@ -18,9 +18,7 @@ export async function POST(req: NextRequest) {
     const [, owner, repo] = match
     const repoName = `${owner}/${repo}`
 
-
     try {
-      // HEAD request using axios to check if repo exists
       await axios.head(`https://api.github.com/repos/${owner}/${repo}`, {
         headers: {
           Accept: "application/vnd.github.v3+json",
