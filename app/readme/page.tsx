@@ -1,4 +1,5 @@
 import { ReadmeDisplay } from "@/components/readme-display"
+import { Loader2 } from "lucide-react"
 import { Suspense } from "react"
 
 export default function ReadmePage() {
@@ -11,11 +12,9 @@ export default function ReadmePage() {
         fallback={
           <div className="flex flex-col items-center justify-center min-h-screen px-4">
             <div className="relative">
-              {/* Enhanced loading spinner */}
               <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-neutral-200 dark:border-neutral-700 rounded-full animate-spin">
-                <div className="absolute top-0 left-0 w-10 h-10 sm:w-12 sm:h-12 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
+                <Loader2 />
               </div>
-              {/* Pulsing dots */}
               <div className="flex items-center justify-center gap-1 mt-4 sm:mt-6">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>

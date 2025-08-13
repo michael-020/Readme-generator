@@ -72,12 +72,7 @@ export function HomeForm() {
                 focus:outline-none focus:ring-0 focus:ring-neutral-500/20
                 disabled:opacity-50 disabled:cursor-not-allowed`}
                 disabled={isLoading}
-                />
-            {inputVal && !error && (
-              <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 ">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              </div>
-            )}
+            />
           </div>
 
           <button
