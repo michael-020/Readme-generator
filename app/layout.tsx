@@ -64,7 +64,7 @@ export default function RootLayout({
           }
         `}</style>
       </head>
-      <body className="antialiased font-sans bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white">
+      <body className="antialiased font-sans bg-neutral-950 text-white">
         {children}
         <Toaster
           position="top-right"

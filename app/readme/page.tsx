@@ -12,7 +12,7 @@ export default function ReadmePage() {
         fallback={
           <div className="flex flex-col items-center justify-center min-h-screen px-4">
             <div className="relative">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-neutral-200 dark:border-neutral-700 rounded-full animate-spin">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-neutral-700 rounded-full animate-spin">
                 <Loader2 />
               </div>
               <div className="flex items-center justify-center gap-1 mt-4 sm:mt-6">
@@ -22,10 +22,10 @@ export default function ReadmePage() {
               </div>
             </div>
             <div className="mt-6 sm:mt-8 text-center max-w-sm">
-              <h2 className="text-lg sm:text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-white mb-2">
                 Loading README
               </h2>
-              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
                 Preparing your generated documentation...
               </p>
             </div>
