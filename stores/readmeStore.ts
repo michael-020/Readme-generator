@@ -91,5 +91,13 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
     } finally {
       set({ isGenerating: false })
     }
+
+    try {
+      await axios.post("/api/store-repo", {
+        repoUrl: get().repoUrl
+      })      
+    } catch (error) {
+      console.error("Error while storing in db", error)
+    }
   },
 }))
