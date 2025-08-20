@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
         }
       })
     )
-
+    // console.log("files: ", filesWithContent)
     return NextResponse.json({ files: filesWithContent })
   } catch (error) {
     console.error("Files error:", error)
