@@ -4,7 +4,8 @@ import { create } from "zustand"
 
 interface ReadmeState {
   content: string
-  repoUrl: string
+  repoUrl: string,
+  sessionId: string,
 
   isFetchingRepo: boolean
   isReading: boolean
@@ -20,6 +21,7 @@ interface ReadmeState {
 export const useReadmeStore = create<ReadmeState>((set, get) => ({
   content: "",
   repoUrl: "",
+  sessionId: "",
 
   isFetchingRepo: false,
   isReading: false,
@@ -55,6 +57,8 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
       const filesRes = await axios.post("/api/read-files", { repoName })
       files = filesRes.data.files
 
+      set({ sessionId: filesRes.data.sessionId })
+
     } catch (err: any) {
       const message = err.response?.data?.error || "Failed to read repository files"
       set({ error: message, isReading: false })
@@ -69,21 +73,13 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
       const parts = repoUrl.split("/")
       repoName = parts[parts.length - 1] || ""
 
-      const readmeRes = await axios.post("/api/generate-readme", { files, repoName })
+      const readmeRes = await axios.post("/api/generate-readme", { 
+        sessionId: get().sessionId, 
+        repoName
+      })
       const readme = readmeRes.data.readme
 
       set({ content: readme, repoUrl })
-      toast.success("README generated successfully!", {
-        style: {
-          border: "1px solid #713200",
-          padding: "16px",
-          color: "#713200",
-        },
-        iconTheme: {
-          primary: "#713200",
-          secondary: "#FFFAEE",
-        },
-      })
     } catch (err: any) {
       const message = err.response?.data?.error || "Failed to generate README"
       set({ error: message })
@@ -98,6 +94,14 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
       })      
     } catch (error) {
       console.error("Error while storing in db", error)
+    }
+
+    try {
+      await axios.post("/api/delete-session", {
+        sessionId: get().sessionId
+      })      
+    } catch (error) {
+      console.error("Error while deleting session", error)
     }
   },
 }))

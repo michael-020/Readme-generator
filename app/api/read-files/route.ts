@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma"
 import octokit from "@/lib/server/octokit"
 import { type NextRequest, NextResponse } from "next/server"
 
@@ -50,10 +51,24 @@ export async function POST(request: NextRequest) {
         }
       })
     )
-    // console.log("files: ", filesWithContent)
-    return NextResponse.json({ files: filesWithContent })
+    
+    const session = await prisma.fileSession.create({
+      data: {
+        repoName,
+        files: {
+          createMany: {
+            data: filesWithContent.map(f => ({
+              path: f.path,
+              content: f.content
+            }))
+          }
+        }
+      }
+    })
+
+    return NextResponse.json({ sessionId: session.id })
   } catch (error) {
     console.error("Files error:", error)
-    return NextResponse.json({ error: "Failed to fetch files" }, { status: 500 })
+    return NextResponse.json({ msg: "Internal server error" }, { status: 500 })
   }
 }

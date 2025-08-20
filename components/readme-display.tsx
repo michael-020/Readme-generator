@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 import { useState, useEffect } from "react"
 import { Copy, Check, Download, Eye, Code, ExternalLink } from "lucide-react"
 import ReactMarkdown from "react-markdown"
@@ -9,7 +9,6 @@ import remarkBreaks from "remark-breaks"
 import { useReadmeStore } from "@/stores/readmeStore"
 
 export function ReadmeDisplay() {
-  const router = useRouter()
   const [copied, setCopied] = useState(false)
   const [activeTab, setActiveTab] = useState<"preview" | "raw">("preview")
   const { content, repoUrl } = useReadmeStore()
@@ -18,9 +17,9 @@ export function ReadmeDisplay() {
 
   useEffect(() => {
     if (!readme) {
-      router.push("/")
+      redirect("/")
     }
-  }, [readme, router])
+  }, [readme])
 
   const handleCopy = async () => {
     try {

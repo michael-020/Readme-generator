@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Github, Loader2, ArrowRight } from "lucide-react"
 import { useReadmeStore } from "@/stores/readmeStore"
 import { motion } from "framer-motion"
+import toast from "react-hot-toast"
 
 export function HomeForm() {
   const [isFocused, setIsFocused] = useState(false)
@@ -42,6 +43,17 @@ export function HomeForm() {
     setInputVal("")
 
     router.push("/readme")
+    toast.success("README generated successfully!", {
+      style: {
+        border: "1px solid #713200",
+        padding: "16px",
+        color: "#713200",
+      },
+      iconTheme: {
+        primary: "#713200",
+        secondary: "#FFFAEE",
+      },
+    })
   }
 
   return (

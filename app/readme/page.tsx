@@ -12,9 +12,7 @@ export default function ReadmePage() {
         fallback={
           <div className="flex flex-col items-center justify-center min-h-screen px-4">
             <div className="relative">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-neutral-700 rounded-full animate-spin">
-                <Loader2 />
-              </div>
+              <Loader2 className="animate-spin size-10" />
               <div className="flex items-center justify-center gap-1 mt-4 sm:mt-6">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
