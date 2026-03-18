@@ -75,7 +75,8 @@ export const useReadmeStore = create<ReadmeState>((set, get) => ({
 
       const readmeRes = await axios.post("/api/generate-readme", { 
         sessionId: get().sessionId, 
-        repoName
+        repoName,
+        repoUrl
       })
       const readme = readmeRes.data.readme
 
